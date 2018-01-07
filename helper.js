@@ -6,6 +6,7 @@ var Workspace = vscode.workspace;
 
 var language = require('./language');
 var Todo = require('./models').Todo;
+var errorHandling = require('./error-handling');
 
 helper.getUsersWorkspaceConfigurations = function() {
   return Workspace.getConfiguration();  
@@ -107,7 +108,7 @@ helper.findFiles = function(extension, exclude, choosenLanguage, scanRegex, done
         findTodosinFiles(files, choosenLanguage, scanRegex, function(err, todos, todosList) {
             done(err, todos, todosList);
         });
-    });
+    }, errorHandling.showError);
 };
 
 helper.createStatusBarItem = function() {
